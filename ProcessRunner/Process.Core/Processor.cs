@@ -9,7 +9,6 @@ namespace Process.Core
 {
   public class Processor
   {
-    private CompositionContainer _container;
     [ImportMany(typeof(IProcess))]
     public IEnumerable<IProcess> Processes;
 
@@ -17,8 +16,8 @@ namespace Process.Core
     {
       var catalog = new AggregateCatalog();
       catalog.Catalogs.Add(new DirectoryCatalog("process"));
-      _container = new CompositionContainer(catalog);
-      _container.ComposeParts(this);
+      var container = new CompositionContainer(catalog);
+      container.ComposeParts(this);
     }
 
     public void Process()
